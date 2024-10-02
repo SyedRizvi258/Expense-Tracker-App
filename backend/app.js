@@ -17,15 +17,15 @@ app.use(cors());
 readdirSync('./routes').map((route) => app.use('/api/v1', require('./routes/' + route)));
 
 // Serve static files from the React frontend app
-// Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
-    // Set static folder
-    app.use(express.static('frontend/build'));
-  
+    // Point Express to the client/build directory
+    app.use(express.static(path.join(__dirname, '../frontend/build')));
+
+    // Handle React routing, return all requests to the frontend app
     app.get('*', (req, res) => {
-      res.sendFile(path.resolve(__dirname, '..', 'frontend', 'build', 'index.html'));
+        res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
     });
-  }
+}
 
 // Server
 const server = () => {
