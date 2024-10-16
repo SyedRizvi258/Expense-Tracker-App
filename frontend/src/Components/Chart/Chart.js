@@ -30,32 +30,25 @@ ChartJS.register(
 function Chart() {
     const {incomes, expenses} = useGlobalContext();
 
+    const sortedIncomes = [...incomes].sort((a, b) => new Date(a.date) - new Date(b.date));
+    const sortedExpenses = [...expenses].sort((a, b) => new Date(a.date) - new Date(b.date));
+
     const data = {
-        labels: incomes.map((inc) =>{
+        labels: sortedIncomes.map((inc) =>{
             const {date} = inc;
             return dateFormat(date); 
         }),
         datasets: [
             {
                 label: 'Income',
-                data: [
-                    ...incomes.map((income) => {
-                        const {amount} = income;
-                        return amount;
-                    })
-                ],
+                data: sortedIncomes.map((income) => income.amount),
                 backgroundColor: 'green',
                 borderColor: 'green',
                 tension: .2
             },
             {
                 label: 'Expenses',
-                data: [
-                    ...expenses.map((expense) => {
-                        const {amount} = expense;
-                        return amount;
-                    })
-                ],
+                data: sortedExpenses.map((expense) => expense.amount),
                 backgroundColor: 'red',
                 borderColor: 'red',
                 tension: .2
