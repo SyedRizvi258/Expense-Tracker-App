@@ -6,6 +6,11 @@ import { dollar } from '../../utils/icons';
 import { useGlobalContext } from '../../context/globalContext';
 import History from '../History/History';
 
+/* 
+    This component displays the dashboard. It contains the Chart component and the History component.
+    The Chart component displays the total income, total expense, and total balance.
+    The History component displays the three latest income/expense items.
+*/
 function Dashboard() {
     const {totalExpenses, incomes, expenses, totalIncome, totalBalance, getIncomes, getExpenses} = useGlobalContext();
     
